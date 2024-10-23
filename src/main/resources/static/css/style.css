@@ -1,3 +1,11 @@
-body {
-    
+.loginForm {
+    margin: auto;
+    max-width: 540px;
+    margin-bottom: 1em;
+    margin-top: 25vh;
+}
+
+.loginSubmit {
+    display: block;
+    margin: auto;
 }
