@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 @Table
 public class UserTable {
     @Id
-    private String hash_val;
+    private int IDVal;
 
     @Column(nullable = false, unique = true)
     private String Email;
@@ -37,11 +37,11 @@ public class UserTable {
         this.Password = password;
     }
 
-    public String getHash_val() {
-        return hash_val;
+    public int getHash_val() {
+        return IDVal;
     }
 
-    public void setHash_val(String hash_val) {
-        this.hash_val = hash_val;
+    public void setHash_val(int hash_val) {
+        this.IDVal = hash_val;
     }
 }

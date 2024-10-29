@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TutorBridgeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TutorBridgeApplication.class, args);
+		SpringApplication.run(com.tutorbridge.TutorBridge.UserTable.class, args);
 	}
 
 }
