@@ -1,3 +1,44 @@
+.loginForm {
+    margin: auto;
+    max-width: 540px;
+    margin-bottom: 1em;
+    margin-top: 25vh;
+}
+
+.loginSubmit {
+    display: block;
+    margin: auto;
+}
 body {
-    
+    background-color: lightblue; /* Change this to your desired color */
+}
+
+.homepageText{
+    text-align: center;      /* Centers the text horizontally */
+    font-size: 2em;
+    font-family: 'Roboto', sans-serif;
+}
+
+.imageResize{
+    width: 500px;    /* Resize the image */
+    height: auto;    /* Maintain aspect ratio */
+    border-radius: 10px;
+    display: block;  /* Make the image a block-level element */
+    margin-left: auto;
+    margin-right: auto;  /* Automatically adjust margins to center the image */
+}
+
+.title{
+    text-align: center; 
+    font-weight: bold;
+}
+
+.aboutUs{
+    position: absolute;     /* Position it relative to the nearest positioned ancestor or body */
+    bottom: 0;              /* Place it at the bottom of the page */
+    left: 0;
+    right: 0;
+    margin-left: 30px;      /* Add left margin */
+    margin-right: 30px;     /* Add right margin */
+    padding-bottom: 10px;   /* Optional padding from the bottom */
 }

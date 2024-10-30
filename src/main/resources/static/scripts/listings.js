@@ -4,7 +4,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 // Set up page
 const App = () => {
   return (
-    <div id="body">
+    <div>
       <NavBar/>
     </div>
   );
