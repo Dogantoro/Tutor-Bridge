@@ -12,8 +12,35 @@
     <body>
         <!-- Content -->
         <div id="root"></div>   <!-- react root element -->
-        <script type="text/babel" src="scripts/login.js"></script>  <!-- Load our React components -->
+        
+        <script type="text/babel">
+            // Set root element
+            const root = ReactDOM.createRoot(document.getElementById('root'));
 
+            // Set up page
+            const App = () => {
+                return (
+                    <div id="body">
+                    <NavBar/>
+                    </div>
+                );
+            };
+
+            // Render contents
+            root.render(<App />);
+        </script>
+
+        <div id="main" class="p-4">
+            <div class=" mb-4 bg-body-tertiary rounded-3">
+                <div class="container-fluid p-5">
+                    <h1 class="display-5 fw-bold errorBox">Something went wrong...</h1>
+                    <p class="col-md-8 fs-4">There was an error on our end. Try navigating to a new page.</p>
+                    <div class="container">                    
+                        <img src="assets/cat.png" class="imageResize img-fluid" alt="Cute Picture of Cat">
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Includes -->
 
