@@ -3,7 +3,7 @@ function ListingCard (props) {
 
     return (
         <div>
-            <div class="card listing-card m-3">
+            <div class="card listing-card m-3 mr-0">
                 <div class="card-body">
                     <h5 class="card-title">{props.name}</h5>
                     <h6 class="card-subtitle mb-2 text-body-secondary">{props.subjects}</h6>
