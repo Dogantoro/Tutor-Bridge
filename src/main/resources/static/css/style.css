@@ -1,8 +1,54 @@
-.loginForm {
+.card-tab {
+    border-top-left-radius: 0.7em;
+    border-top-right-radius: 0.7em;
+}
+
+#login-tab {
+    border-top-left-radius: 0.7em;
+    border-top-right-radius: 0.7em;
+    border-color: var(--bs-nav-tabs-link-active-border-color);
+    border-bottom: var(--bs-nav-tabs-border-width) solid var(--bs-nav-tabs-border-color);
+    background-color: #f8f9fa;
+}
+
+#login-tab.active {
+    border-bottom-color: transparent;
+    background-color: white;
+}
+
+#register-tab {
+    border-top-left-radius: 0.7em;
+    border-top-right-radius: 0.7em;
+    border-color: var(--bs-nav-tabs-link-active-border-color);
+    border-bottom: var(--bs-nav-tabs-border-width) solid var(--bs-nav-tabs-border-color);
+    background-color: #f8f9fa;
+}
+
+#register-tab.active {
+    border-bottom-color: transparent;
+    background-color: white;
+
+}
+
+.formContainer {
     margin: auto;
     max-width: 540px;
     margin-bottom: 1em;
-    margin-top: 25vh;
+    margin-top: 15vh;
+    border-top: 0cap;
+    border-radius: 0.7em;
+}
+
+.card {
+    --bs-card-bg: transparent;
+}
+
+.loginForm {
+    /* margin: auto;
+    max-width: 540px;
+    margin-bottom: 1em;
+    margin-top: 15vh; */
+    border: 0cap;
 }
 
 .loginSubmit {
@@ -10,7 +56,7 @@
     margin: auto;
 }
 body {
-    background-color: lightblue; /* Change this to your desired color */
+    /*background-color: #e3f2fd; /* Change this to your desired color */
 }
 
 .homepageText{
