@@ -2,10 +2,17 @@
 function ListingCard (props) {
 
     return (
-        <div>
-            <div class="card listing-card m-3 mr-0">
+        <div class="col-sm-6 col-lg-4 mb-4">
+            <div class="container-sm card listing-card">
                 <div class="card-body">
-                    <h5 class="card-title">{props.name}</h5>
+                    <div class="row justify-content-between">
+                        <div class="col col-md-auto">
+                            <h5 class="card-title">{props.name}</h5>
+                        </div>
+                        <div class="col col-auto">
+                            <span class="badge text-bg-secondary">${props.rate}/h</span>
+                        </div>
+                    </div>
                     <h6 class="card-subtitle mb-2 text-body-secondary">{props.subjects}</h6>
                     <p class="card-text">{props.bio}</p>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target={"#" + props.id}>

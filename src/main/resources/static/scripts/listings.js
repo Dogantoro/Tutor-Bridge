@@ -19,9 +19,9 @@ var cards = [<ListingCard name="Jane Doe" subjects="prog 1, chemistry" bio="This
 
 function FormattedListings() {
   return (
-    <div class="row">
-      <div class="col-3"><ListingCard name="Jane Doe" subjects="prog 1, chemistry" bio="Passionate about teaching students!" id='1'/></div>
-      <div class="col-3"><ListingCard name="John Doe" subjects="DSA, Calculus 3" bio="TA for both classes. Text me for tutoring?" id='1'/></div>
+    <div class="row m-3 mt-4" data-masonry='{"percentPosition": true }'>
+      <ListingCard name="Jane Doe" subjects="prog 1, chemistry" bio="Passionate about teaching students!" id='1' rate='15'/>
+      <ListingCard name="John Doe" subjects="DSA, Calculus 3" bio="TA for both classes. Text me for tutoring?" id='2' rate='12'/>
     </div>
   )
 }
