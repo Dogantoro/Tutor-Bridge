@@ -169,14 +169,17 @@ function Register() {  // this function should return the component or append it
         })
         .then(function(response) {
             if (response.ok) {
-                return response.json();
+                return response.text();
             }
             throw new Error('Network response was not ok.');
         })
         .then(function(data) {
             // Handle success
             console.log('Success:', data);
-            alert('Registration successful!');
+            if(data == email) {
+                document.cookies = "login=true; path=/";
+                alert('Registration successful!')
+            }
         })
         .catch(function(error) {
             // Handle errors
