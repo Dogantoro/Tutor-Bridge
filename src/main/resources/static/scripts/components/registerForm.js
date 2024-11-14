@@ -29,15 +29,16 @@
     )
 }*/
 
+// library is already included in login.js so should not be included again
 
 // Include Bootstrap CSS dynamically
-var link = document.createElement('link');
-link.rel = 'stylesheet';
-link.href = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css';
-document.head.appendChild(link);
+// var link = document.createElement('link');
+// link.rel = 'stylesheet';
+// link.href = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css';
+// document.head.appendChild(link);
 
 // Function to create and append the registration form
-function register() {
+function Register() {  // this function should return the component or append it inside the div with the "register-tab-pane"
     // Create the main div
     var div = document.createElement('div');
     div.className = 'card container-sm p-5 loginForm';
@@ -186,4 +187,6 @@ function register() {
 }
 
 // Initialize the registration form
-register();
+// register();
+
+// commented out the function call cause the component should be rendered in the App function in login.js
