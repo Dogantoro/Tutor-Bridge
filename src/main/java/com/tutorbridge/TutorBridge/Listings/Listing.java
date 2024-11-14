@@ -16,7 +16,7 @@ public class Listing {
 
     @ManyToOne
     // I have legitimately no clue how this line works please enlighten me because I am 99% it is wrong and i do not know how
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "users", nullable = false)
     private User user;
 
     public Listing() {}
