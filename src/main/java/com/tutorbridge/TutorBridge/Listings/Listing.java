@@ -40,7 +40,7 @@ public class Listing {
         this.price = price;
         this.user = user;
     }
-    
+
     // Getters and setters
     public int getId() { return id; }
     public String getClasses() { return classes; }
