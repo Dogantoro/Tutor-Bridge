@@ -64,29 +64,63 @@ function FloatingButton () {
 }
 
 function PostModal() {
+  var name = "Name Here";
+  var email = "example@gmail.com";
+
   return (
   <div class="modal fade" id="make-post-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-fullscreen-sm-down">
+    <div class="modal-dialog modal-xl modal-fullscreen-sm-down modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Make a Post</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h1 class="modal-title mx-auto fs-3" id="staticBackdropLabel">Make a Post</h1>
         </div>
         <div class="modal-body">
           <form>
-            <input type="email" readonly class="form-control-plaintext" id="floatingEmptyPlaintextInput" placeholder="name@example.com"></input>
-            <label for="floatingEmptyPlaintextInput">Empty input</label>
-            
-            <input type="text" class="form-control" placeholder="Contact Info." aria-label="Contact Info."></input>
-            <input type="text" class="form-control" placeholder="Hourly Rate" aria-label="Hourly Rate"></input>
-            <input type="text" class="form-control" placeholder="Payment Method" aria-label="Payment Method"></input>
-            <input type="text" class="form-control" placeholder="Classes you can tutor" aria-label="Classes you can tutor"></input>
-            <input type="text" class="form-control" placeholder="About you" aria-label="About you"></input>
-            <input type="text" class="form-control" placeholder="Additional Info." aria-label="Additional Info."></input>
+            <div class="row mx-2 g-3">
+              <div class="col-6">
+                <label for="nameInput">Name</label>
+                <input type="email" readonly class="form-control-plaintext" id="nameInput" placeholder={name} disabled></input>
+              </div>
 
+              <div class="col-6">
+                <label for="emailInput">Email</label>
+                <input type="email" readonly class="form-control-plaintext" id="emailInput" placeholder={email} disabled></input>
+              </div>
+              
+              <div class="col-6">
+                <label for="contactInput" class="form-label">Contact Info.</label>
+                <input type="text" class="form-control" id="contactInput" placeholder="Contact Info." aria-label="Contact Info."></input>
+              </div>
+
+              <div class="col-6">
+                <label for="rateInput" class="form-label">Hourly Rate</label>
+                <input type="text" class="form-control" id="rateInput" placeholder="Hourly Rate" aria-label="Hourly Rate"></input>
+              </div>
+
+              <div class="col-6">
+                <label for="payMethInput" class="form-label">Payment Method</label>
+                <input type="text" class="form-control" id="payMethInput" placeholder="Payment Method" aria-label="Payment Method"></input>
+              </div>
+
+              <div class="col-6">
+                <label for="classesInput" class="form-label">Classes</label>
+                <input type="text" class="form-control" id="classesInput" placeholder="Classes you can tutor" aria-label="Classes you can tutor"></input>
+              </div>
+
+              <div class="col-12">
+                <label for="aboutInput" class="form-label">About</label>
+                <input type="text" class="form-control" id="aboutInput" placeholder="About you" aria-label="About you"></input>
+              </div>
+
+              <div class="col-12">
+                <label for="addInfoInput" class="form-label">Additional Info.</label>
+                <input type="text" class="form-control" id="addInfoInput" placeholder="Additional Info." aria-label="Additional Info."></input>
+              </div>
+            </div>
           </form>
         </div>
         <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary">Post</button>
         </div>
       </div>
