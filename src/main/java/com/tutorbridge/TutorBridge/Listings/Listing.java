@@ -1,5 +1,6 @@
 package com.tutorbridge.TutorBridge.Listings;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import com.tutorbridge.TutorBridge.Users.User;
 
@@ -17,8 +18,8 @@ public class Listing {
     private double price;
 
     @ManyToOne
-    // I have legitimately no clue how this line works please enlighten me because I am 99% it is wrong and i do not know how
-    @JoinColumn(name = "users", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonManagedReference
     private User user;
 
     public Listing() {}

@@ -1,5 +1,6 @@
 package com.tutorbridge.TutorBridge.Users;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.tutorbridge.TutorBridge.Listings.Listing;
 import jakarta.persistence.*;
 
@@ -19,9 +20,9 @@ public class User {
 
     private String password;
 
-    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
-    // idk what cascade & orphan do but i see them everywhere so I assume they are the default?
-    private ArrayList<Listing> listings = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
+    private List<Listing> listings;
 
     public User(String email, String password) {
         this.email = email;
@@ -53,13 +54,7 @@ public class User {
         return ID;
     }
 
-    public void addListing(Listing listing) {
-        listings.add(listing);
-        listing.setUser(this);
-    }
-
-    public void removeListing(Listing listing) {
-        listings.remove(listing);
-        listing.setUser(null);
+    public List<Listing> getListings() {
+        return listings;
     }
 }
