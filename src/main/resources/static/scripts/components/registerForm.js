@@ -172,14 +172,17 @@
         })
         .then(function(response) {
             if (response.ok) {
-                return response.json();
+                return response.text();
             }
             throw new Error('Network response was not ok.');
         })
         .then(function(data) {
             // Handle success
             console.log('Success:', data);
-            alert('Registration successful!');
+            if(data == email) {
+                document.cookies = "login=true; path=/";
+                alert('Registration successful!')
+            }
         })
         .catch(function(error) {
             // Handle errors
