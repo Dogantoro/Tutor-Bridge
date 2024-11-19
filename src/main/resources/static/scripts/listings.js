@@ -109,12 +109,12 @@ function PostModal() {
 
               <div class="col-12">
                 <label for="aboutInput" class="form-label">About</label>
-                <input type="text" class="form-control" id="aboutInput" placeholder="About you" aria-label="About you"></input>
+                <textarea class="form-control" id="aboutInput" placeholder="About you" aria-label="About you" rows="2"></textarea>
               </div>
 
               <div class="col-12">
                 <label for="addInfoInput" class="form-label">Additional Info.</label>
-                <input type="text" class="form-control" id="addInfoInput" placeholder="Additional Info." aria-label="Additional Info."></input>
+                <textarea class="form-control" id="addInfoInput" placeholder="Additional Info." aria-label="Additional Info." rows="1"></textarea>
               </div>
             </div>
           </form>
