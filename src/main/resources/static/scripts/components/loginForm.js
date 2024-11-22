@@ -41,14 +41,18 @@ function Login() {
       })
         .then(function (response) {
           if (response.ok) {
-            return response.json();
+            return response.text();
           }
           throw new Error('Network response was not ok.');
         })
         .then(function (data) {
           // Handle success
           console.log('Success:', data);
-          alert('Login successful!');
+
+          if (data == "success!") { // set cookie if login was sucessful
+            document.cookie = "login=true; path=/";
+            alert('Login successful!');
+          }
           // Redirect or perform other actions upon successful login
         })
         .catch(function (error) {
