@@ -1,8 +1,6 @@
 // Set root element
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-document.cookie = "login=true";
-
 // Set up page
 const App = () => {
   return (

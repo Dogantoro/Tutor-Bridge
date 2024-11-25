@@ -1,19 +1,19 @@
 function NavBar() {
   var NavEnd = <div></div>;
 
-  if (document.cookie.includes("login=false")) {
+  if (document.cookie.includes("login=true")) {
+    NavEnd = (
+      <a class="navbar-brand nav-icon" href="#">
+        <i class="bi bi-person-circle"></i>
+      </a>
+    );
+  }
+  else {
     NavEnd = (
       <div class="btn-group">
         <a class="btn btn-outline-light" href="./login.html">Login</a>
         <a class="btn btn-outline-light" href="./login.html">Register</a>
       </div>
-    );
-  }
-  else {
-    NavEnd = (
-      <a class="navbar-brand nav-icon" href="#">
-        <i class="bi bi-person-circle"></i>
-      </a>
     );
   }
 
