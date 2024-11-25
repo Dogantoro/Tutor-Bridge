@@ -1,6 +1,11 @@
 package com.tutorbridge.TutorBridge.Users;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.tutorbridge.TutorBridge.Listings.Listing;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -11,7 +16,13 @@ public class User {
 
     private String email;
 
+    private String name;
+
     private String password;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
+    private List<Listing> listings;
 
     public User(String email, String password) {
         this.email = email;
@@ -27,6 +38,10 @@ public class User {
         this.email = email;
     }
 
+    public String getName() {return name;}
+
+    public void setName(String name) {this.name = name;}
+
     public String getPassword(){
         return this.password;
     }
@@ -37,5 +52,9 @@ public class User {
 
     public int getID() {
         return ID;
+    }
+
+    public List<Listing> getListings() {
+        return listings;
     }
 }
