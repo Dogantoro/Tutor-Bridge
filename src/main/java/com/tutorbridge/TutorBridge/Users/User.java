@@ -1,6 +1,7 @@
 package com.tutorbridge.TutorBridge.Users;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.tutorbridge.TutorBridge.Listings.Listing;
 import jakarta.persistence.*;
 
@@ -21,7 +22,7 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
+    @JsonManagedReference
     private List<Listing> listings;
 
     public User(String email, String password) {
