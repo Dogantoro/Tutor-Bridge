@@ -9,6 +9,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -27,7 +28,7 @@ public class UserController {
     }
 
     // DEBUGGING PURPOSES ONLY - DELETE BEFORE DEPLOY
-    @GetMapping("/user")
+    @GetMapping("/users")
     @Operation(summary = "Get all users (ONLY FOR TESTING: NOT available in production!)")
     public Iterable<User> getAllUsers() {
         return userRepo.findAll();
@@ -45,24 +46,25 @@ public class UserController {
 
     @PostMapping("/register")
     @Operation(summary = "Register a user")
-    public String registerUser(@RequestBody User user, HttpServletRequest request) {
+    public String registerUser(@RequestBody UserRegisterDTO user, HttpServletRequest request) {
         User newuser = new User();
-        newuser.setEmail(user.getEmail());
-        newuser.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+        newuser.setName(user.name);
+        newuser.setEmail(user.email);
+        newuser.setPassword(BCrypt.hashpw(user.password, BCrypt.gensalt()));
         userRepo.save(newuser);
-        loginUser(newuser, request);
+        loginUser(user, request);
         return newuser.getEmail();
     }
     @PostMapping("/login")
     @Operation(summary = "Log in user and setup session")
-    public String loginUser(@RequestBody User user, HttpServletRequest request) {
-        var email = user.getEmail();
+    public String loginUser(@RequestBody UserRegisterDTO user, HttpServletRequest request) {
+        var email = user.email;
         var foundAccount = StreamSupport.stream(userRepo.findAll().spliterator(), false)
                 .filter(account -> account.getEmail().equals(email)).findFirst();
         if (foundAccount.isEmpty())
             return "Account not found!";
         var correctPassword = foundAccount.get().getPassword();
-        if (!BCrypt.hashpw(user.getPassword(), correctPassword).equals(correctPassword))
+        if (!BCrypt.hashpw(user.password, correctPassword).equals(correctPassword))
             return "Incorrect Password!";
         HttpSession session = request.getSession();
         session.setAttribute("userToken", foundAccount.get().getID());
@@ -75,5 +77,50 @@ public class UserController {
     Iterable<Listing> getUserListings(@PathVariable int userID) {
         User user = userRepo.findById(userID).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found!"));
         return user.getListings();
+    }
+
+    @GetMapping("/user")
+    @Operation(summary = "Get currently logged in user")
+    ResponseEntity<?> getCurrentUser(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null && session.getAttribute("userToken") != null) {
+            return ResponseEntity.ok(new UserDTO(userRepo.findById((int) session.getAttribute("userToken")).get()));
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No user is logged in");
+    }
+
+    @PostMapping("/logout")
+    @Operation(summary = "Log out the currently logged-in user")
+    public ResponseEntity<String> logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+            return ResponseEntity.ok("Successfully logged out");
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No user is logged in");
+    }
+}
+
+class UserRegisterDTO {
+    public String name;
+    public String email;
+    public String password;
+
+    public UserRegisterDTO(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+}
+
+class UserDTO {
+    public String name;
+    public String email;
+    public int userID;
+
+    public UserDTO(User user) {
+        this.name = user.getName();
+        this.email = user.getEmail();
+        this.userID = user.getID();
     }
 }
