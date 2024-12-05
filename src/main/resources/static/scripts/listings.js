@@ -62,9 +62,6 @@ function FloatingButton () {
 }
 
 function PostModal() {
-  var name = "Name Here";
-  var email = "example@gmail.com";
-
   // State variables for form inputs
   const [contactInfo, setContactInfo] = React.useState('');
   const [hourlyRate, setHourlyRate] = React.useState('');
@@ -79,8 +76,6 @@ function PostModal() {
 
     // Prepare data to send
     const data = {
-      name: name,
-      email: email,
       contact: contactInfo,
       price: hourlyRate,
       paymentMethod: paymentMethod,
@@ -90,7 +85,7 @@ function PostModal() {
     };
 
     // Send POST request
-    fetch('/make-post', { // Replace '/make-post' with your actual endpoint
+    fetch('/listings', { // Replace '/make-post' with your actual endpoint
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
