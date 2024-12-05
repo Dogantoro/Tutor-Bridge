@@ -63,7 +63,7 @@ function FloatingButton () {
   }
 }
 
-function PostModal() {
+/*function PostModal() {
   var name = "Name Here";
   var email = "example@gmail.com";
 
@@ -127,7 +127,224 @@ function PostModal() {
     </div>
   </div>
   );
+}*/
+
+function PostModal() {
+  var name = "Name Here";
+  var email = "example@gmail.com";
+
+  // State variables for form inputs
+  const [contactInfo, setContactInfo] = React.useState('');
+  const [hourlyRate, setHourlyRate] = React.useState('');
+  const [paymentMethod, setPaymentMethod] = React.useState('');
+  const [classes, setClasses] = React.useState('');
+  const [about, setAbout] = React.useState('');
+  const [additionalInfo, setAdditionalInfo] = React.useState('');
+
+  // Handle form submission
+  const handleSubmit = (event) => {
+    event.preventDefault(); // Prevent default form submission
+
+    // Prepare data to send
+    const data = {
+      name: name,
+      email: email,
+      contact: contactInfo,
+      price: hourlyRate,
+      paymentMethod: paymentMethod,
+      classes: classes,
+      description: about,
+      additionalInfo: additionalInfo,
+    };
+
+    // Send POST request
+    fetch('/make-post', { // Replace '/make-post' with your actual endpoint
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then(function (response) {
+        if (response.ok) {
+          return response.text();
+        }
+        throw new Error('Network response was not ok.');
+      })
+      .then(function (responseData) {
+        // Handle success
+        console.log('Success:', responseData);
+        alert('Post submitted successfully!');
+        // Optionally reset form fields
+        setContactInfo('');
+        setHourlyRate('');
+        setPaymentMethod('');
+        setClasses('');
+        setAbout('');
+        setAdditionalInfo('');
+        // Optionally close the modal programmatically
+      })
+      .catch(function (error) {
+        // Handle errors
+        console.error('Error:', error);
+        alert('Post submission failed.');
+      });
+  };
+
+  return (
+    <div
+      className="modal fade"
+      id="make-post-modal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabIndex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div className="modal-dialog modal-xl modal-fullscreen-sm-down modal-dialog-centered modal-dialog-scrollable">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h1 className="modal-title mx-auto fs-3" id="staticBackdropLabel">
+              Make a Post
+            </h1>
+          </div>
+          <div className="modal-body">
+            <form onSubmit={handleSubmit}>
+              <div className="row mx-2 g-3">
+                <div className="col-6">
+                  <label htmlFor="nameInput">Name</label>
+                  <input
+                    type="text"
+                    readOnly
+                    className="form-control-plaintext"
+                    id="nameInput"
+                    value={name}
+                    disabled
+                  />
+                </div>
+
+                <div className="col-6">
+                  <label htmlFor="emailInput">Email</label>
+                  <input
+                    type="email"
+                    readOnly
+                    className="form-control-plaintext"
+                    id="emailInput"
+                    value={email}
+                    disabled
+                  />
+                </div>
+
+                <div className="col-6">
+                  <label htmlFor="contactInput" className="form-label">
+                    Contact Info.
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="contactInput"
+                    placeholder="Contact Info."
+                    aria-label="Contact Info."
+                    value={contactInfo}
+                    onChange={(e) => setContactInfo(e.target.value)}
+                  />
+                </div>
+
+                <div className="col-6">
+                  <label htmlFor="rateInput" className="form-label">
+                    Hourly Rate
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="rateInput"
+                    placeholder="Hourly Rate"
+                    aria-label="Hourly Rate"
+                    value={hourlyRate}
+                    onChange={(e) => setHourlyRate(e.target.value)}
+                  />
+                </div>
+
+                <div className="col-6">
+                  <label htmlFor="payMethInput" className="form-label">
+                    Payment Method
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="payMethInput"
+                    placeholder="Payment Method"
+                    aria-label="Payment Method"
+                    value={paymentMethod}
+                    onChange={(e) => setPaymentMethod(e.target.value)}
+                  />
+                </div>
+
+                <div className="col-6">
+                  <label htmlFor="classesInput" className="form-label">
+                    Classes
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="classesInput"
+                    placeholder="Classes you can tutor"
+                    aria-label="Classes you can tutor"
+                    value={classes}
+                    onChange={(e) => setClasses(e.target.value)}
+                  />
+                </div>
+
+                <div className="col-12">
+                  <label htmlFor="aboutInput" className="form-label">
+                    About
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="aboutInput"
+                    placeholder="About you"
+                    aria-label="About you"
+                    value={about}
+                    onChange={(e) => setAbout(e.target.value)}
+                  />
+                </div>
+
+                <div className="col-12">
+                  <label htmlFor="addInfoInput" className="form-label">
+                    Additional Info.
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="addInfoInput"
+                    placeholder="Additional Info."
+                    aria-label="Additional Info."
+                    value={additionalInfo}
+                    onChange={(e) => setAdditionalInfo(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="modal-footer mt-3">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="submit" className="btn btn-primary">
+                  Post
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
+
 
 // bottom right button functionality
 var floatingButtonContainer = document.querySelector('.floating-button-div');
