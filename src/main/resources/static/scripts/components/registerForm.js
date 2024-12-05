@@ -33,12 +33,10 @@ function Register() {
           throw new Error('Network response was not ok.');
         })
         .then(function (data) {
-          // Handle success
-          console.log('Success:', data);
-
           if (data == email) { // set cookie if registration was sucessful
-            document.cookie = "login=true; path=/";
-            alert('Registration successful!');
+            document.getElementById("register-tab").click(); // doesn't work FIX 
+            ReactDOM.createRoot(document.getElementById('alertLocal'))
+              .render(<SucessAlert text="Registration sucessful! Login with your email and password."/>);
           }
         })
         .catch(function (error) {

@@ -5,11 +5,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 const App = () => {
   return (
     <div>
-        <NavBar/>
-        <FormattedListings/>
-        <FloatingButton/>
-        <PostModal/>
-      </div>
+      <NavBar/>
+      <FormattedListings/>
+      <FloatingButton/>
+      <PostModal/>
+    </div>
   );
 };
 
@@ -18,19 +18,28 @@ root.render(<App />);
 
 
 function FormattedListings() {
+  var alert = <div></div>;
   var cards = [];
+
+  if (document.cookie.includes("loginRecent=true")) {
+    alert = <SucessAlert text="You've successfully logged in!"/>;
+    document.cookie = "loginRecent=false; path=/";
+  }
 
   cards[0] = <ListingCard name="Jane Doe" subjects="Prog 1, Chemistry" bio="Passionate about teaching students!" id='1' rate='15'/>;
   cards[1] = <ListingCard name="John Doe" subjects="DSA, Calculus 3" bio="TA for both classes. Text me for tutoring?" id='2' rate='12'/>;
 
   return (
-    <div class="row m-3 mt-4" data-masonry='{"percentPosition": true }'>
-      {cards}
-      {cards}
-      {cards}
-      {cards}
+    <div class="m-3 mt-4">
+      {alert}
+      <div class="row" data-masonry='{"percentPosition": true }'>
+        {cards}
+        {cards}
+        {cards}
+        {cards}
+      </div>
     </div>
-  )
+  );
 }
 
 
@@ -62,6 +71,9 @@ function FloatingButton () {
 }
 
 function PostModal() {
+  var name = "Name Here";
+  var email = "email@email.com";
+
   // State variables for form inputs
   const [contactInfo, setContactInfo] = React.useState('');
   const [hourlyRate, setHourlyRate] = React.useState('');

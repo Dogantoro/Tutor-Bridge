@@ -1,4 +1,3 @@
-
 function ListingCard (props) {
 
     return (
