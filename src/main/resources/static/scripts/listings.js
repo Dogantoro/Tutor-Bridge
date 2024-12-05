@@ -149,11 +149,11 @@ function PostModal() {
     const data = {
       name: name,
       email: email,
-      contactInfo: contactInfo,
-      hourlyRate: hourlyRate,
+      contact: contactInfo,
+      price: hourlyRate,
       paymentMethod: paymentMethod,
       classes: classes,
-      about: about,
+      description: about,
       additionalInfo: additionalInfo,
     };
 
