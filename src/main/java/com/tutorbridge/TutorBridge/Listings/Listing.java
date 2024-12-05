@@ -12,10 +12,11 @@ public class Listing {
     private int id;
 
     private String classes;
-    private String contact;
+    private String contactInfo;
     private String additionalInfo;
-    private String description;
-    private double price;
+    private String about;
+    private double rate;
+    private String paymentMethod;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -24,21 +25,22 @@ public class Listing {
 
     public Listing() {}
 
-    public Listing(String classes, String description,String contact,String additionalInfo, double price, User user) {
+    public Listing(String classes, String about, String contactInfo, String additionalInfo, double rate, User user, String paymentMethod) {
         this.classes = classes;
-        this.contact = contact;
+        this.contactInfo = contactInfo;
         this.additionalInfo = additionalInfo;
-        this.description = description;
-        this.price = price;
+        this.about = about;
+        this.rate = rate;
         this.user = user;
+        this.paymentMethod = paymentMethod;
     }
 
-    public Listing(String classes, String description,String contact, double price, User user) {
+    public Listing(String classes, String about, String contactInfo, double rate, User user) {
         this.classes = classes;
-        this.contact = contact;
+        this.contactInfo = contactInfo;
         this.additionalInfo = null;
-        this.description = description;
-        this.price = price;
+        this.about = about;
+        this.rate = rate;
         this.user = user;
     }
 
@@ -47,17 +49,17 @@ public class Listing {
     public String getClasses() { return classes; }
     public void setClasses(String Class) { this.classes = Class; }
 
-    public String getContact() { return contact; }
-    public void setContact(String Contact) { this.contact = Contact; }
+    public String getContactInfo() { return contactInfo; }
+    public void setContactInfo(String Contact) { this.contactInfo = Contact; }
 
     public String getAdditionalInfo() { return additionalInfo; }
     public void setAdditionalInfo(String AdditionalInfo) { this.additionalInfo = AdditionalInfo; }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public String getAbout() { return about; }
+    public void setAbout(String about) { this.about = about; }
 
-    public double getPrice() { return price; }
-    public void setPrice(double price) { this.price = price; }
+    public double getRate() { return rate; }
+    public void setRate(double rate) { this.rate = rate; }
 
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }

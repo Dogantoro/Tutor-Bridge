@@ -34,7 +34,7 @@ public class ListingController {
         Optional<User> user = userRepo.findById(listingData.userID);
         if (user.isEmpty())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User was not found!");
-        Listing listing = new Listing(listingData.classes, listingData.description, listingData.contact, listingData.additionalInfo, listingData.price, user.get());
+        Listing listing = new Listing(listingData.classes, listingData.about, listingData.contactInfo, listingData.additionalInfo, listingData.rate, user.get(), listingData.paymentMethod);
         return new ResponseEntity<>(listingRepo.save(listing), HttpStatus.CREATED);
     }
 
@@ -57,9 +57,10 @@ public class ListingController {
 
 class ListingDTO {
     public String classes;
-    public String contact;
+    public String contactInfo;
     public String additionalInfo;
-    public String description;
-    public double price;
+    public String about;
+    public double rate;
     public int userID;
+    public String paymentMethod;
 }
