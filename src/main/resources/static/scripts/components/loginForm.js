@@ -1,21 +1,3 @@
-/*function Login(){
-    return (
-        <div class="card container-sm p-5 loginForm">
-            <form id="myForm">
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input name="password" type="password" class="form-control" id="exampleInputPassword1"/>
-                </div>
-                <button type="submit" class="btn btn-primary loginSubmit mt-3">Sign In</button>
-            </form>
-        </div>
-    )
-}*/
-
 function Login() {
     // State variables for form inputs
     const [email, setEmail] = React.useState('');
@@ -46,19 +28,22 @@ function Login() {
           throw new Error('Network response was not ok.');
         })
         .then(function (data) {
-          // Handle success
-          console.log('Success:', data);
-
-          if (data == "success!") { // set cookie if login was sucessful
+          if (data == "success!") { // if login successful
             document.cookie = "login=true; path=/";
-            alert('Login successful!');
+            document.cookie = "loginRecent=true; path=/";
+            
+            window.location.pathname = "/listings.html"; // redirect to listings page
+          }
+          else { // if unsucessful
+            ReactDOM.createRoot(document.getElementById('alertLocal'))
+              .render(<FailureAlert text="Account not found, try again"/>);
           }
           // Redirect or perform other actions upon successful login
         })
         .catch(function (error) {
           // Handle errors
-          console.error('Error:', error);
-          alert('Login failed.');
+          // console.error('Error:', error);
+          // alert('Login failed.');
         });
     };
   

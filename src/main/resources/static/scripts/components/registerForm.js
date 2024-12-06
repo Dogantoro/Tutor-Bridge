@@ -33,18 +33,21 @@ function Register() {
           throw new Error('Network response was not ok.');
         })
         .then(function (data) {
-          // Handle success
-          console.log('Success:', data);
-
           if (data == email) { // set cookie if registration was sucessful
             document.cookie = "login=true; path=/";
-            alert('Registration successful!');
+            document.cookie = "registerRecent=true; path=/";
+            
+            window.location.pathname = "/listings.html"; // redirect to listings page
+          }
+          else { // if unsucessful
+            ReactDOM.createRoot(document.getElementById('alertLocal'))
+              .render(<FailureAlert text="This email has already been used. Try another one."/>);
           }
         })
         .catch(function (error) {
           // Handle errors
-          console.error('Error:', error);
-          alert('Registration failed.');
+          // console.error('Error:', error);
+          // alert('Registration failed.');
         });
     };
   

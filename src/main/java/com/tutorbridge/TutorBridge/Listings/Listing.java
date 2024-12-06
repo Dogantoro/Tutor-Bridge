@@ -1,5 +1,6 @@
 package com.tutorbridge.TutorBridge.Listings;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import com.tutorbridge.TutorBridge.Users.User;
