@@ -18,6 +18,14 @@ public class Listing {
     private double rate;
     private String paymentMethod;
 
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     @JsonManagedReference
