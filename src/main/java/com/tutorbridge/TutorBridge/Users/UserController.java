@@ -47,6 +47,8 @@ public class UserController {
     @PostMapping("/register")
     @Operation(summary = "Register a user")
     public String registerUser(@RequestBody UserRegisterDTO user, HttpServletRequest request) {
+        if (StreamSupport.stream(userRepo.findAll().spliterator(),false).filter(x -> x.getEmail() == user.email).count() != 0)
+            return "Email already exists!";
         User newuser = new User();
         newuser.setName(user.name);
         newuser.setEmail(user.email);
@@ -68,7 +70,7 @@ public class UserController {
             return "Incorrect Password!";
         HttpSession session = request.getSession();
         session.setAttribute("userToken", foundAccount.get().getID());
-        session.setMaxInactiveInterval(30 * 60);
+            session.setMaxInactiveInterval(30 * 60);
         return "success!";
     }
 

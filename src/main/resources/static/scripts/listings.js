@@ -1,49 +1,95 @@
 // Set root element
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
-document.cookie = "login=true";
-
 // Set up page
 const App = () => {
   return (
     <div>
-        <NavBar/>
-        <FormattedListings/>
-        <FloatingButton/>
-        <PostModal/>
-      </div>
+      <NavBar/>
+      <FormattedListings/>
+      <FloatingButton/>
+      <PostModal/>
+    </div>
   );
 };
-
+getUser();
+populateCards();
 // Render contents
 root.render(<App />);
 
+function logOut() {
+  fetch("/logout", {
+    method: "POST"
+  }).then(function(response) {
+    var Cookies = document.cookie.split(';');
+    for (var i = 0; i < Cookies.length; i++) {
+      document.cookie = Cookies[i] + "=; expires="+ new Date(0).toUTCString();
+    }    
+   location.reload();
+  });
+}
+
+async function getListings() {
+  const response = await fetch("/listings", {
+    method: "GET"
+  });
+  return response.json();
+}
+
+async function getUser() {
+  const response = await fetch("/user", {
+    method: "GET"
+  }).then(function(response) {
+    return response.json();
+  }).then (function(responseData) {
+    document.getElementById("nameInput").setAttribute('value', responseData.name);
+    document.getElementById("emailInput").setAttribute('value', responseData.email);
+    localStorage.setItem("userID", responseData.userID);
+  });
+}
+
+async function populateCards() {
+  const response = await fetch("/listings", {
+    method: "GET"
+  }).then(function(response) {
+    return response.json();
+  }).then(function(responseData) {
+    let cards = "";
+
+    for (var i in responseData) {
+      cards += ListingCard(responseData[i]);
+    }
+
+    document.getElementById("cardLocal").innerHTML = cards;
+  });
+}
 
 function FormattedListings() {
-  var cards = [];
+  var alert = <div></div>;
 
-  cards[0] = <ListingCard name="Jane Doe" subjects="Prog 1, Chemistry" bio="Passionate about teaching students!" id='1' rate='15'/>;
-  cards[1] = <ListingCard name="John Doe" subjects="DSA, Calculus 3" bio="TA for both classes. Text me for tutoring?" id='2' rate='12'/>;
-
+  if (document.cookie.includes("loginRecent=true")) {
+    alert = <SucessAlert text="You've successfully logged in!"/>;
+    document.cookie = "loginRecent=false; path=/";
+  }
+  else if (document.cookie.includes("registerRecent=true")) {
+    alert = <SucessAlert text="Signup successful! Welcome to Tutor Bridge!"/>;
+    document.cookie = "registerRecent=false; path=/";
+  }
   return (
-    <div class="row m-3 mt-4" data-masonry='{"percentPosition": true }'>
-      {cards}
-      {cards}
-      {cards}
-      {cards}
+    <div class="m-3 mt-4">
+      {alert}
+      <div class="row" data-masonry='{"percentPosition": true }' id="cardLocal">
+      </div>
     </div>
-  )
+  );
 }
 
 
 function FloatingButton () {
-  var postExists = false;
-
   if (!document.cookie.includes("login=true")) {
     return null;
   }
 
-  if (postExists) {
+  if (document.cookie.includes("postExists=true")) {
     return (
       <div class="floating-button-div">
         <button class="fb btn btn-primary shadow" data-bs-toggle="modal" data-bs-target="#make-post-modal">
@@ -63,75 +109,9 @@ function FloatingButton () {
   }
 }
 
-/*function PostModal() {
-  var name = "Name Here";
-  var email = "example@gmail.com";
-
-  return (
-  <div class="modal fade" id="make-post-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-fullscreen-sm-down modal-dialog-centered modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title mx-auto fs-3" id="staticBackdropLabel">Make a Post</h1>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="row mx-2 g-3">
-              <div class="col-6">
-                <label for="nameInput">Name</label>
-                <input type="email" readonly class="form-control-plaintext" id="nameInput" placeholder={name} disabled></input>
-              </div>
-
-              <div class="col-6">
-                <label for="emailInput">Email</label>
-                <input type="email" readonly class="form-control-plaintext" id="emailInput" placeholder={email} disabled></input>
-              </div>
-              
-              <div class="col-6">
-                <label for="contactInput" class="form-label">Contact Info.</label>
-                <input type="text" class="form-control" id="contactInput" placeholder="Contact Info." aria-label="Contact Info."></input>
-              </div>
-
-              <div class="col-6">
-                <label for="rateInput" class="form-label">Hourly Rate</label>
-                <input type="text" class="form-control" id="rateInput" placeholder="Hourly Rate" aria-label="Hourly Rate"></input>
-              </div>
-
-              <div class="col-6">
-                <label for="payMethInput" class="form-label">Payment Method</label>
-                <input type="text" class="form-control" id="payMethInput" placeholder="Payment Method" aria-label="Payment Method"></input>
-              </div>
-
-              <div class="col-6">
-                <label for="classesInput" class="form-label">Classes</label>
-                <input type="text" class="form-control" id="classesInput" placeholder="Classes you can tutor" aria-label="Classes you can tutor"></input>
-              </div>
-
-              <div class="col-12">
-                <label for="aboutInput" class="form-label">About</label>
-                <input type="text" class="form-control" id="aboutInput" placeholder="About you" aria-label="About you"></input>
-              </div>
-
-              <div class="col-12">
-                <label for="addInfoInput" class="form-label">Additional Info.</label>
-                <input type="text" class="form-control" id="addInfoInput" placeholder="Additional Info." aria-label="Additional Info."></input>
-              </div>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Post</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  );
-}*/
-
 function PostModal() {
-  var name = "Name Here";
-  var email = "example@gmail.com";
+  var name = "name";
+  var email = "email";
 
   // State variables for form inputs
   const [contactInfo, setContactInfo] = React.useState('');
@@ -147,18 +127,17 @@ function PostModal() {
 
     // Prepare data to send
     const data = {
-      name: name,
-      email: email,
-      contact: contactInfo,
-      price: hourlyRate,
+      contactInfo: contactInfo,
+      rate: hourlyRate,
       paymentMethod: paymentMethod,
       classes: classes,
-      description: about,
+      about: about,
       additionalInfo: additionalInfo,
+      userID: localStorage.getItem("userID"),
     };
 
     // Send POST request
-    fetch('/make-post', { // Replace '/make-post' with your actual endpoint
+    fetch('/listings', { // Replace '/make-post' with your actual endpoint
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -175,6 +154,7 @@ function PostModal() {
         // Handle success
         console.log('Success:', responseData);
         alert('Post submitted successfully!');
+        document.cookie = "postExists=true";
         // Optionally reset form fields
         setContactInfo('');
         setHourlyRate('');
@@ -183,6 +163,7 @@ function PostModal() {
         setAbout('');
         setAdditionalInfo('');
         // Optionally close the modal programmatically
+        location.reload();
       })
       .catch(function (error) {
         // Handle errors
@@ -218,7 +199,6 @@ function PostModal() {
                     readOnly
                     className="form-control-plaintext"
                     id="nameInput"
-                    value={name}
                     disabled
                   />
                 </div>
@@ -230,7 +210,6 @@ function PostModal() {
                     readOnly
                     className="form-control-plaintext"
                     id="emailInput"
-                    value={email}
                     disabled
                   />
                 </div>
@@ -345,7 +324,6 @@ function PostModal() {
   );
 }
 
-
 // bottom right button functionality
 var floatingButtonContainer = document.querySelector('.floating-button-div');
 var scrollY = window.scrollY;
@@ -353,4 +331,3 @@ window.addEventListener('scroll', function() {
   scrollY = window.scrollY;
   //floatingButtonContainer.style.top = scrollY + window.innerHeight - 150 + 'px';
 });  
-

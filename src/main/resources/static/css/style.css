@@ -57,6 +57,12 @@
     border-radius: 0.7em;
 }
 
+.formContLite {
+
+    border-top: 0cap;
+    border-radius: 0.7em;
+}
+
 .card {
     --bs-card-bg: transparent;
 }
