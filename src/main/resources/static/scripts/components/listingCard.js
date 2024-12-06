@@ -35,7 +35,7 @@ function ListingCard (props) {
                         <p class="fw-bold">Additional info:</p>
                         <p>${props.additionalInfo}</p>
                         <p class="fw-bold">Payment info:</p>
-                        <p>${props.additionalInfo}</p>
+                        <p>${props.paymentMethod}</p>
                     </div>
 
                     </div>
