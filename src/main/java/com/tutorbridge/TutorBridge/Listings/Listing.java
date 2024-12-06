@@ -21,7 +21,7 @@ public class Listing {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonBackReference
+    @JsonManagedReference
     private User user;
 
     public Listing() {}
