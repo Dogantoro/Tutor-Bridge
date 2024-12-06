@@ -34,15 +34,20 @@ function Register() {
         })
         .then(function (data) {
           if (data == email) { // set cookie if registration was sucessful
-            document.getElementById("register-tab").click(); // doesn't work FIX 
+            document.cookie = "login=true; path=/";
+            document.cookie = "registerRecent=true; path=/";
+            
+            window.location.pathname = "/listings.html"; // redirect to listings page
+          }
+          else { // if unsucessful
             ReactDOM.createRoot(document.getElementById('alertLocal'))
-              .render(<SucessAlert text="Registration sucessful! Login with your email and password."/>);
+              .render(<FailureAlert text="This email has already been used. Try another one."/>);
           }
         })
         .catch(function (error) {
           // Handle errors
-          console.error('Error:', error);
-          alert('Registration failed.');
+          // console.error('Error:', error);
+          // alert('Registration failed.');
         });
     };
   

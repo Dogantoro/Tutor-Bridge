@@ -3,7 +3,7 @@ function NavBar() {
 
   if (document.cookie.includes("login=true")) {
     NavEnd = (
-      <a class="navbar-brand nav-icon" href="#">
+      <a class="navbar-brand nav-icon" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
         <i class="bi bi-person-circle"></i>
       </a>
     );

@@ -35,7 +35,8 @@ function Login() {
             window.location.pathname = "/listings.html"; // redirect to listings page
           }
           else { // if unsucessful
-            ReactDOM.createRoot(document.getElementById('alertLocal')).render(<FailureAlert text="Account not found, try again"/>);
+            ReactDOM.createRoot(document.getElementById('alertLocal'))
+              .render(<FailureAlert text="Account not found, try again"/>);
           }
           // Redirect or perform other actions upon successful login
         })
